@@ -29,7 +29,6 @@ public class PatientController {
 		int patientId=patientServiceI.savePatient(patient);
 		
 		return "home";
-		
 	}
 	
 }

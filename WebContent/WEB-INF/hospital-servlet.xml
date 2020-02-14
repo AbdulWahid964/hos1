@@ -28,6 +28,8 @@
 		<beans:property name="annotatedClasses">
 			<beans:list>
 				<beans:value>com.java.hospital.model.Patient</beans:value>
+				<beans:value>com.java.hospital.model.PatientDiagnosis</beans:value>
+				<beans:value>com.java.hospital.model.Physician</beans:value>
 			</beans:list>
 		</beans:property>
 		
@@ -51,7 +53,7 @@
     
  
     
-    
+    <!-- Patient -->
     <beans:bean id="patientServiceI" class="com.java.hospital.service.PatientServiceImpl">
 		<beans:property name="patientDaoI" ref="patientDaoI"/>
 	</beans:bean>
@@ -60,6 +62,23 @@
 		<beans:property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory"></beans:property>
 	</beans:bean>
 	
+	 <!-- Patient Diagnosis-->
+	
+	<beans:bean id="patientDiagnosisServiceI" class="com.java.hospital.service.PatientDiagnosisServiceImpl">
+		<beans:property name="patientDiagnosisDaoI" ref="patientDiagnosisDaoI"/>
+	</beans:bean>
+	
+	<beans:bean id="patientDiagnosisDaoI" class="com.java.hospital.dao.PatientDiagnosisDaoImpl">
+		<beans:property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory"></beans:property>
+	</beans:bean>
+	
+	<beans:bean id="physicianServiceI" class="com.java.hospital.service.PhysicianServiceImpl">
+		<beans:property name="physicianDaoI" ref="physicianDaoI"/>
+	</beans:bean>
+	
+	<beans:bean id="physicianDaoI" class="com.java.hospital.dao.PhysicianDaoImpl">
+		<beans:property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory"></beans:property>
+	</beans:bean>
    <!--  <tx:annotation-driven transaction-manager="transactionManager"/>
 	
 	<beans:bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
