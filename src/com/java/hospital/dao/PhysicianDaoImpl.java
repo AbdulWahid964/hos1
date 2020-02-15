@@ -3,11 +3,13 @@ package com.java.hospital.dao;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
 import com.java.hospital.model.Physician;
 
 @Repository
+@Component
 public class PhysicianDaoImpl implements PhysicianDaoI {
 
 	@Autowired

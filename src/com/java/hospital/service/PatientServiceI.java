@@ -1,6 +1,7 @@
 package com.java.hospital.service;
 
 import java.text.ParseException;
+import java.util.List;
 
 import com.java.hospital.model.Patient;
 
@@ -8,7 +9,9 @@ import com.java.hospital.model.Patient;
 public interface PatientServiceI {
 
 	
-	int savePatient(Patient patient) throws ParseException;
-	
-	
+	void savePatient(Patient patient) throws ParseException;
+	List<Patient> getAllPatients();
+	Patient getPatient(int patientId);
+	void updatePatient(Patient patient);
+	void deletePatient(int patientId);
 }

@@ -3,7 +3,6 @@ package com.java.hospital.model;
 
 import java.util.Date;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -18,8 +17,8 @@ public class Patient {
 	private String firstName;
 	private String lastName;
 	private String password;
-	private Date dateOfBirth;
-	private String emailAddress;
+/*	private Date dateOfBirth;
+*/	private String emailAddress;
 	private long contactNumber;
 	private String state;
 	private String insurancePlan;
@@ -49,12 +48,13 @@ public class Patient {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	public Date getDateOfBirth() {
+/*	public Date getDateOfBirth() {
 		return dateOfBirth;
 	}
 	public void setDateOfBirth(Date dateOfBirth) {
 		this.dateOfBirth = dateOfBirth;
 	}
+*/	
 	public String getEmailAddress() {
 		return emailAddress;
 	}
@@ -79,7 +79,5 @@ public class Patient {
 	public void setInsurancePlan(String insurancePlan) {
 		this.insurancePlan = insurancePlan;
 	}
-	
-	
 	
 	}

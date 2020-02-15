@@ -18,7 +18,13 @@ public class PhysicianController {
 	@Autowired
 	PhysicianServiceI physicianServiceI;
 	
-	@RequestMapping("/addPhysician.html")
+	public PhysicianServiceI getPhysicianServiceI() {
+		return physicianServiceI;
+	}
+	public void setPhysicianServiceI(PhysicianServiceI physicianServiceI) {
+		this.physicianServiceI = physicianServiceI;
+	}
+	@RequestMapping("/showPhysician")
 	public String addPhysician(Model model){
 		model.addAttribute("physician", new Physician());
 		return "enroll_physician";
@@ -27,14 +33,7 @@ public class PhysicianController {
 	public String savePatient(@ModelAttribute("physician") Physician physician, Model model) throws ParseException{
 		
 		physicianServiceI.savePhysician(physician);
-		
 		return "home";
-		
 	}
-	public PhysicianServiceI getPhysicianServiceI() {
-		return physicianServiceI;
-	}
-	public void setPhysicianServiceI(PhysicianServiceI physicianServiceI) {
-		this.physicianServiceI = physicianServiceI;
-	}
+	
 }

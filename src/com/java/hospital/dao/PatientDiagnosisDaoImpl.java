@@ -6,12 +6,14 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
 import com.java.hospital.model.Patient;
 import com.java.hospital.model.PatientDiagnosis;
 
 @Repository
+@Component
 public class PatientDiagnosisDaoImpl implements PatientDiagnosisDaoI {
 	
 	@Autowired

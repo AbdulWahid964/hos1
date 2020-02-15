@@ -8,7 +8,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.java.hospital.model.Patient;
 import com.java.hospital.model.PatientDiagnosis;
@@ -24,7 +23,15 @@ public class PatientDiagnosisController {
 	private PatientDiagnosisServiceI patientDiagnosisServiceI;
 
 	
-	@RequestMapping("/showPatientDiagnosis.html")
+	public PatientDiagnosisServiceI getPatientDiagnosisServiceI() {
+		return patientDiagnosisServiceI;
+	}
+
+	public void setPatientDiagnosisServiceI(PatientDiagnosisServiceI patientDiagnosisServiceI) {
+		this.patientDiagnosisServiceI = patientDiagnosisServiceI;
+	}
+
+	@RequestMapping("/showPatientDiagnosis")
 	public String showPatientDiagnosis(Model model){
 		
 		List<Patient> patientlist = patientDiagnosisServiceI.listOfPatients();                    // All list of Book
@@ -44,4 +51,8 @@ public class PatientDiagnosisController {
 		return "home";
 
 	}
+	
 }
+
+
+

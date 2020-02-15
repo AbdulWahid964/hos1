@@ -4,6 +4,7 @@ import java.text.ParseException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import com.java.hospital.dao.PatientDiagnosisDaoI;
@@ -11,12 +12,19 @@ import com.java.hospital.model.Patient;
 import com.java.hospital.model.PatientDiagnosis;
 
 @Service
+@Component
 public class PatientDiagnosisServiceImpl implements PatientDiagnosisServiceI{
 
 	
 	@Autowired
 	private PatientDiagnosisDaoI  patientDiagnosisDaoI;
 	
+	public PatientDiagnosisDaoI getPatientDiagnosisDaoI() {
+		return patientDiagnosisDaoI;
+	}
+	public void setPatientDiagnosisDaoI(PatientDiagnosisDaoI patientDiagnosisDaoI) {
+		this.patientDiagnosisDaoI = patientDiagnosisDaoI;
+	}
 	@Override
 	public int savePatientDiagnosis(PatientDiagnosis patientDiagnosis) throws ParseException {
 		
@@ -24,15 +32,6 @@ public class PatientDiagnosisServiceImpl implements PatientDiagnosisServiceI{
 	
 		return 0;
 	}
-
-	public PatientDiagnosisDaoI getPatientDiagnosisDaoI() {
-		return patientDiagnosisDaoI;
-	}
-
-	public void setPatientDiagnosisDaoI(PatientDiagnosisDaoI patientDiagnosisDaoI) {
-		this.patientDiagnosisDaoI = patientDiagnosisDaoI;
-	}
-
 	@Override
 	public List<Patient> listOfPatients() {
 		
@@ -40,6 +39,4 @@ public class PatientDiagnosisServiceImpl implements PatientDiagnosisServiceI{
 		
 		return patientlist;
 	}
-	
-
 }

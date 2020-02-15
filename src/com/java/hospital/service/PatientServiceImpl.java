@@ -1,37 +1,54 @@
 package com.java.hospital.service;
 
 import java.text.ParseException;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import com.java.hospital.dao.PatientDaoI;
 import com.java.hospital.model.Patient;
 
 @Service
+@Component
 public class PatientServiceImpl implements PatientServiceI {
 
 	
 	@Autowired
 	private PatientDaoI  patientDaoI;
-	
-	
+
 	public PatientDaoI getPatientDaoI() {
 		return patientDaoI;
 	}
-
-
 	public void setPatientDaoI(PatientDaoI patientDaoI) {
 		this.patientDaoI = patientDaoI;
 	}
 
 
 	@Override
-	public int savePatient(Patient patient) throws ParseException {
-
+	public void savePatient(Patient patient) throws ParseException {
 		patientDaoI.savePatient(patient);
-		
-		return 0;
 	}
+	@Override
+	public List<Patient> getAllPatients() {
 
+		List<Patient> patientList=patientDaoI.getAllPatients();
+		return patientList;
+	}
+	@Override
+	public Patient getPatient(int patientId) {
+		Patient patient= patientDaoI.getPatient(patientId);
+		return patient;
+	}
+	@Override
+	public void updatePatient(Patient patient) {
+		patientDaoI.updatePatient(patient);		
+	}
+	@Override
+	public void deletePatient(int patientId) {
+
+		patientDaoI.deletePatient(patientId);
+		
+	}
 }

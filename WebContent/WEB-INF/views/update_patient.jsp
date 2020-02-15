@@ -24,11 +24,10 @@
 
 
 <body>
-<a href="${pageContext.request.contextPath}"/>Home</a> 
  
 <div class="container">
   <h2>Enroll Patient</h2>
-<form:form action="${pageContext.request.contextPath}/patient/savePatient" method="post" commandName="patient">
+<form:form action="${pageContext.request.contextPath}/patient/updatePatient" method="post" commandName="patient">
 
     <div class="form-group">
       <label for="patient_id">Patient Id:</label>
@@ -46,7 +45,7 @@
     
     <div class="form-group">
       <label for="password">Password:</label>
-      <form:password path="password"  class="form-control" placeholder="Enter Password "/>
+      <form:password path="password"  class="form-control" readonly="true" placeholder="Enter Password "/>
     </div>
     <%-- 
     <div class="form-group">
@@ -75,7 +74,7 @@
     </div>
     
   
-    <button type="submit" class="btn btn-default">Submit</button>
+    <button type="submit" class="btn btn-default">Update Patient</button>
   </form:form><br/>
 </div>
 
