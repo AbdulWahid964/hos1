@@ -6,6 +6,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,17 +30,22 @@ public class PatientController {
 	}
 	@RequestMapping("/showPatient")
 	public String showPatient(Model model){
-		model.addAttribute("patient", new Patient());
+		
+		Patient patient=patientServiceI.patientIdAutoComplete();
+		
+		model.addAttribute("patient", patient);
+		
 		return "enroll_patient";
 	}
 	@RequestMapping("/savePatient")
-	public String savePatient(@ModelAttribute("patient") Patient patient, Model model) throws ParseException{
+	public String savePatient(@Validated @ModelAttribute("patient") Patient patient,BindingResult bindingResult,Model model) throws ParseException{
 
-		patientServiceI.savePatient(patient);
-
-		//model.addAttribute("patient", patientObj);
-
-		return "view_patient";
+		if(bindingResult.hasErrors()) {
+			System.out.println("Errors");
+			return "enroll_patient";
+		}
+			patientServiceI.savePatient(patient);
+		return "redirect:/patient/viewPatient";
 	}
 	@RequestMapping("/viewPatient")
 	public String viewPatient(Model model) throws ParseException{
@@ -47,17 +54,18 @@ public class PatientController {
 
 		model.addAttribute("patientList",patientList);
 
+		patientList=null;
 		return "view_patient";
 	}
 
 	@RequestMapping("/getPatient/{id}")
 	public String getPatient(@PathVariable("id") int patientId,Model model) throws ParseException{
 
-		System.out.println("patientId" +patientId);
 		Patient patient =patientServiceI.getPatient(patientId);
 		
 		model.addAttribute("patient",patient);
 
+		patient=null;
 		return "update_patient";
 	}
 	
@@ -77,6 +85,18 @@ public class PatientController {
 		patientServiceI.deletePatient(patientId);
 
 		return "redirect:/patient/viewPatient";
+	}
+	@RequestMapping("/viewPatientHistory")
+	public String viewPatientHistory(Model model) throws ParseException{
+
+		List<Patient> viewPatientHistoryList= patientServiceI.viewPatientHistory();
+
+		
+		for(Patient p:viewPatientHistoryList){
+			System.out.println(p.getPatientId());
+		}
+		model.addAttribute("viewPatientHistoryList", viewPatientHistoryList);
+		return "view_patient_history";
 	}
 	
 }

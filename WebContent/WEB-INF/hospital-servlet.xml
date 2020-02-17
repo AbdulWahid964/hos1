@@ -60,6 +60,7 @@
 	
 	<beans:bean id="patientDaoI" class="com.java.hospital.dao.PatientDaoImpl">
 		<beans:property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory"></beans:property>
+		<!-- <beans:property name="manager" ref="transactionManager"></beans:property> -->
 	</beans:bean>
 	
 	 <!-- Patient Diagnosis-->
@@ -78,13 +79,14 @@
 	
 	<beans:bean id="physicianDaoI" class="com.java.hospital.dao.PhysicianDaoImpl">
 		<beans:property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory"></beans:property>
+		
 	</beans:bean>
-   <!--  <tx:annotation-driven transaction-manager="transactionManager"/>
+    <!-- <tx:annotation-driven transaction-manager="transactionManager"/>
 	
 	<beans:bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
 		<beans:property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory"/>
-	</beans:bean> -->
-    
+	</beans:bean>
+     -->
     </beans:beans>
     
     

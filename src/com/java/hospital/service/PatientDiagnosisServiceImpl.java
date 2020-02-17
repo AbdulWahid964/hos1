@@ -26,11 +26,10 @@ public class PatientDiagnosisServiceImpl implements PatientDiagnosisServiceI{
 		this.patientDiagnosisDaoI = patientDiagnosisDaoI;
 	}
 	@Override
-	public int savePatientDiagnosis(PatientDiagnosis patientDiagnosis) throws ParseException {
+	public void savePatientDiagnosis(PatientDiagnosis patientDiagnosis) throws ParseException {
 		
 		patientDiagnosisDaoI.savePatientDiagnosis(patientDiagnosis);
 	
-		return 0;
 	}
 	@Override
 	public List<Patient> listOfPatients() {
@@ -38,5 +37,32 @@ public class PatientDiagnosisServiceImpl implements PatientDiagnosisServiceI{
 		List<Patient> patientlist=patientDiagnosisDaoI.listOfPatients();
 		
 		return patientlist;
+	}
+	@Override
+	public List<PatientDiagnosis> getAllPatientDiagnosiss() {
+
+		List<PatientDiagnosis> patientDiagnosisList=patientDiagnosisDaoI.getAllPatientDiagnosiss();
+		return patientDiagnosisList;
+	}
+	@Override
+	public PatientDiagnosis getPatientDiagnosis(int patientDiagnosisId) {
+		PatientDiagnosis patientDiagnosis= patientDiagnosisDaoI.getPatientDiagnosis(patientDiagnosisId);
+		return patientDiagnosis;
+	}
+	@Override
+	public void updatePatientDiagnosis(PatientDiagnosis patientDiagnosis) {
+		patientDiagnosisDaoI.updatePatientDiagnosis(patientDiagnosis);		
+	}
+	@Override
+	public void deletePatientDiagnosis(int patientDiagnosisId) {
+
+		patientDiagnosisDaoI.deletePatientDiagnosis(patientDiagnosisId);
+		
+	}
+	@Override
+	public PatientDiagnosis patientDiagnosisAutoComplete() {
+		
+		PatientDiagnosis patientDiagnosis =patientDiagnosisDaoI.patientDiagnosisAutoComplete();
+		return patientDiagnosis;
 	}
 }

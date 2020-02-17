@@ -13,4 +13,6 @@ public interface PatientDaoI {
 	Patient getPatient(int patientId);
 	void updatePatient(Patient patient);
 	void deletePatient(int patientId);
+	Patient patientAutoComplete();
+	List<Patient> viewPatientHistory();
 }

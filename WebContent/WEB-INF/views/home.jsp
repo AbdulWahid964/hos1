@@ -50,7 +50,7 @@
                             <a href="${pageContext.request.contextPath}/physician/showPhysician">Add Physician</a>
                         </li>
                         <li>
-                            <a href="${pageContext.request.contextPath}/physician/editPhysician">View Physician</a>
+                            <a href="${pageContext.request.contextPath}/physician/viewPhysician">View Physician</a>
                         </li>
                     </ul>
                 </li>
@@ -63,9 +63,12 @@
                        
                         </li>
                         <li>
-                            <a href="${pageContext.request.contextPath}//patientdiagnosis/editPatientDiagnosis">View Patient Diagnosis</a>
+                            <a href="${pageContext.request.contextPath}/patientdiagnosis/viewPatientDiagnosis">View Patient Diagnosis</a>
                         </li>
                     </ul>
+                </li>
+                          <li>
+                    <a href="${pageContext.request.contextPath}/patient/viewPatientHistory">View Patient History</a>
                 </li>
             </ul>
                     </nav>
@@ -105,7 +108,7 @@
 
             
     </div>
-
+</div>
     <!-- jQuery CDN - Slim version (=without AJAX) -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <!-- Popper.JS -->

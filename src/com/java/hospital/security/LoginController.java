@@ -1,7 +1,5 @@
 package com.java.hospital.security;
 
-import java.security.Principal;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -20,7 +18,7 @@ public class LoginController {
 
 	}
 
-	@RequestMapping("/admin")
+	/*@RequestMapping("/admin")
 	public String admin(Model model, Principal principal) {
 
 		String loggedInUserName = principal.getName();
@@ -29,7 +27,7 @@ public class LoginController {
 		model.addAttribute("description", "Protected page !");
 		return "admin";
 	}
-
+*/
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String login(ModelMap model) {
 

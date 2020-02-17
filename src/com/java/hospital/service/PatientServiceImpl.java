@@ -51,4 +51,17 @@ public class PatientServiceImpl implements PatientServiceI {
 		patientDaoI.deletePatient(patientId);
 		
 	}
+	@Override
+	public Patient patientIdAutoComplete() {
+		
+		Patient patient =patientDaoI.patientAutoComplete();
+		return patient;
+	}
+
+	@Override
+	public List<Patient> viewPatientHistory() {
+		List<Patient> viewPatientHistoryList=patientDaoI.viewPatientHistory();
+		return viewPatientHistoryList;
+	}
+
 }

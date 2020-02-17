@@ -4,6 +4,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Transient;
+import javax.validation.constraints.Pattern;
+
+import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
 public class Physician {
@@ -11,11 +15,22 @@ public class Physician {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int physicianId;
+//	@NotEmpty(message = "First name can't be empty")
+	@Pattern(regexp = "[a-zA-Z]{2,}", message = "should not empty and must conatins alphabets only")
 	private String physicianFirstName;
+//	@NotEmpty(message = "Last name can't be empty")
+	@Pattern(regexp = "[a-zA-Z]{2,}", message = "should not empty and must conatins alphabets only")
 	private String physicianLastName;
+	@NotEmpty(message = "Dept can't be empty")
 	private String department;
+	@Transient
+	@Pattern(regexp = "[0-9]{1,}", message = "must conatins 1 digits")
+	private String yearOfExperienceString;
+	
 	private int yearOfExperience;
+	@Pattern(regexp = "[a-zA-Z]{2,}", message = "should not empty and must conatins alphabets only")
 	private String state;
+	@NotEmpty(message = "insuarance plan can't be empty")
 	private String insurancePlan;
 	public int getPhysicianId() {
 		return physicianId;
@@ -62,6 +77,12 @@ public class Physician {
 	public Physician() {
 		super();
 		// TODO Auto-generated constructor stub
+	}
+	public String getYearOfExperienceString() {
+		return yearOfExperienceString;
+	}
+	public void setYearOfExperienceString(String yearOfExperienceString) {
+		this.yearOfExperienceString = yearOfExperienceString;
 	}
 	
 

@@ -14,4 +14,6 @@ public interface PatientServiceI {
 	Patient getPatient(int patientId);
 	void updatePatient(Patient patient);
 	void deletePatient(int patientId);
+	Patient patientIdAutoComplete();
+	List<Patient> viewPatientHistory();
 }

@@ -1,6 +1,7 @@
 package com.java.hospital.dao;
 
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import org.hibernate.Query;
@@ -19,17 +20,6 @@ public class PatientDaoImpl implements PatientDaoI {
 
 	@Autowired
 	SessionFactory sessionFactory;
-	// @Autowired
-	// TransactionManager manager;
-
-	// public TransactionManager getManager() {
-	// return manager;
-	// }
-	//
-	// public void setManager(TransactionManager manager) {
-	// this.manager = manager;
-	// }
-
 	public SessionFactory getSessionFactory() {
 		return sessionFactory;
 	}
@@ -41,22 +31,23 @@ public class PatientDaoImpl implements PatientDaoI {
 	@Override
 	public void savePatient(Patient patient) throws ParseException {
 
+
 		Session session = sessionFactory.openSession();
-		Transaction transaction = session.beginTransaction();
-		/*		Date date = patient.getDateOfBirth();
-		System.out.println("patient.getDateOfBirth()" +patient.getDateOfBirth());
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		String dob = sdf.format(date);
-		Date date1 = sdf.parse(dob);
-		patient.setDateOfBirth(date1);
-		 */		
-		session.save(patient);
+		try {
 
-		transaction.commit();
-
-		session.close();
+			Transaction transaction = session.beginTransaction();
+			String date = patient.getDateOfBirthString();
+			System.out.println("patient.getDateOfBirth()" +patient.getDateOfBirthString());
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+			patient.setDateOfBirth(sdf.parse(date));
+			session.save(patient);
+			transaction.commit();	
+		} catch (Exception e) {
+			System.out.println("Exception Caught" +e.getMessage());
+		}finally {
+			session.close();
+		}
 	}
-
 	@Override
 	public List<Patient> getAllPatients() {
 
@@ -64,23 +55,6 @@ public class PatientDaoImpl implements PatientDaoI {
 
 		@SuppressWarnings("unchecked")
 		List<Patient> patientList = session.createQuery("from Patient").list();
-
-		/*
-		Query query = session.createSQLQuery("SELECT id, candidate_name,gender,candidate_email,previous_employer,"
-				+ "phone_number,DATE_FORMAT(date_of_interview, '%Y-%m-%d') as date_of_interview from Candidate where id=:candidateId").addEntity(Candidate.class)
-				.setParameter("candidateId", candidateId);*/
-		/*
-		for(Patient patient: patientList) {
-
-			Date date = patient.getDateOfBirth();
-			SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
-			String dob = sdf.format(date);
-			Date date1 = sdf.format(dob);
-			patient.setDateOfBirth(date1);
-
-
-
-		}*/
 
 		return patientList;
 	}
@@ -92,26 +66,35 @@ public class PatientDaoImpl implements PatientDaoI {
 
 		Patient patient= new Patient();
 
-		Query query =session.createSQLQuery("SELECT patientId,firstName,lastName,password,emailAddress,contactNumber,state"
-				+ ",insurancePlan from Patient where patientId=:patientId").addEntity(Patient.class)
-				.setParameter("patientId", patientId);
+		try{
 
-		List<Patient> result = query.list();
+			Query query =session.createSQLQuery("SELECT patientId,firstName,lastName,password,dateOfBirth,emailAddress,contactNumber,state"
+					+ ",insurancePlan from Patient where patientId=:patientId").addEntity(Patient.class)
+					.setParameter("patientId", patientId);
 
-		for (Patient obj : result) {
-			patient.setPatientId(obj.getPatientId());
-			patient.setFirstName(obj.getFirstName());
-			patient.setLastName(obj.getLastName());
-			patient.setPassword(obj.getPassword());
+			@SuppressWarnings("unchecked")
+			List<Patient> result = query.list();
 
-			patient.setEmailAddress(obj.getEmailAddress());
-			patient.setContactNumber(obj.getContactNumber());
-			patient.setState(obj.getState());
-			patient.setInsurancePlan(obj.getInsurancePlan());
+			for (Patient obj : result) {
+				patient.setPatientId(obj.getPatientId());
+				patient.setFirstName(obj.getFirstName());
+				patient.setLastName(obj.getLastName());
+				patient.setPassword(obj.getPassword());
+				patient.setDateOfBirth(obj.getDateOfBirth());
+				patient.setEmailAddress(obj.getEmailAddress());
+				patient.setContactNumber(obj.getContactNumber());
+				patient.setState(obj.getState());
+				patient.setInsurancePlan(obj.getInsurancePlan());
+			}
+			query=null;
+			result=null;
 		}
-		session.close();
-		query=null;
-		result=null;
+		catch (Exception e) {
+			System.out.println("Exception Caught " +e.getMessage());
+		}
+		finally {
+			session.close();	
+		}
 		return patient;
 	}
 
@@ -120,24 +103,77 @@ public class PatientDaoImpl implements PatientDaoI {
 
 		Session session = sessionFactory.openSession();
 		Transaction transaction = session.beginTransaction();
-		/*		Date date = patient.getDateOfBirth();
-		System.out.println("patient.getDateOfBirth()" +patient.getDateOfBirth());
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		String dob = sdf.format(date);
-		Date date1 = sdf.parse(dob);
-		patient.setDateOfBirth(date1);
-		 */		
-		session.saveOrUpdate(patient);
-		transaction.commit();
-		session.close();
+
+		try{
+			session.saveOrUpdate(patient);
+			transaction.commit();
+
+		}
+		catch (Exception e) {
+			System.out.println("Exception Caught " +e.getMessage());
+		}
+		finally {
+			session.close();
+			patient=null;
+		}
 	}
 
 	@Override
 	public void deletePatient(int patientId) {
+
 		Session session = sessionFactory.openSession();
-		session.createQuery("delete from Patient where patientId="+patientId).executeUpdate();		
-		session.close();
+
+		try{
+			session.createQuery("delete from Patient where patientId="+patientId).executeUpdate();		
+		}
+		catch (Exception e) {
+			System.out.println("Exception Caught" +e.getMessage());
+		}
+		finally {
+			session.close();
+
+		}
+	}
+	@Override
+	public Patient patientAutoComplete() {
+
+		Session session = sessionFactory.openSession();
+
+		Patient patientObj = new Patient();
+		try{
+			//			int firstTime=0;
+			//			if(firstTime>0){
+			Query query =session.createQuery("select max(patientId) from Patient ");
+
+			int  result = (int) query.uniqueResult();
+
+			//				firstTime++;
+			patientObj.setPatientId(result+1);
+			query=null;
+			//			}
+		}
+		catch (Exception e) {
+			System.out.println("Exception Caught" +e.getMessage());
+		}
+		finally {
+			session.close();
+		}
+		return patientObj;
 	}
 
+	@Override
+	public List<Patient> viewPatientHistory() {
 
+		Session session = sessionFactory.openSession();
+
+		Query query =session.createSQLQuery("SELECT patientId,firstName,lastName,password,emailAddress,contactNumber,state"
+				+ ",insurancePlan,dateOfBirth from Patient").addEntity(Patient.class);
+
+		@SuppressWarnings("unchecked")
+		List<Patient> viewPatientHistoryList = query.list();
+
+		
+		return viewPatientHistoryList;
+
+	}
 }
