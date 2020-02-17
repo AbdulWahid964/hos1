@@ -24,11 +24,13 @@
 
 
 <body>
-<a href="${pageContext.request.contextPath}"/>Home</a> 
  
 <div class="container">
+<br/>
+<button type="submit" class="btn btn-primary" onclick="location.href = '${pageContext.request.contextPath}'">Home</button>
+ 
   <h2>Enroll Patient</h2>
-<form:form action="${pageContext.request.contextPath}/patient/savePatient" method="post" commandName="patient">
+<form:form action="${pageContext.request.contextPath}/patient/updatePatient" method="post" commandName="patient">
 
     <div class="form-group">
       <label for="patient_id">Patient Id:</label>
@@ -46,14 +48,14 @@
     
     <div class="form-group">
       <label for="password">Password:</label>
-      <form:password path="password"  class="form-control" placeholder="Enter Password "/>
-    </div>
-    <%-- 
+      <form:password   path="password"  class="form-control" readonly="true" placeholder="Enter Password "/>
+    </div> 
+    
     <div class="form-group">
       <label for="dob">Date Of Birth</label>
 		<form:input type="text" class="form-control"  path="dateOfBirth"   placeholder="Date Of birth" />
     </div>
-     --%>
+    
     <div class="form-group">
       <label for="email">Email</label>
 	<form:input class="form-control" path="emailAddress" placeholder="Enter Email"/>
@@ -75,7 +77,7 @@
     </div>
     
   
-    <button type="submit" class="btn btn-default">Submit</button>
+    <button type="submit" class="btn btn-default">Update Patient</button>
   </form:form><br/>
 </div>
 

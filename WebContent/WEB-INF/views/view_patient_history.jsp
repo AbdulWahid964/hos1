@@ -7,6 +7,7 @@
 
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Hospital Management System</title>
+  
 <style>
 #patients {
   font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
@@ -34,10 +35,11 @@
 
 </head>
 <body>
-<a href="${pageContext.request.contextPath}"/>Home</a> 
-
 <div>
-<H2>Patient Details</H2>
+<button type="submit" class="btn btn-primary" onclick="location.href = '${pageContext.request.contextPath}'">Home</button>
+ </div>
+<div>
+<H2>Patient History Details</H2>
 </div>
 
 <div>
@@ -48,35 +50,24 @@
 				<th>Patient Id</th>
 				<th>First Name</th>
 				<th>Last Name</th>
-				<!-- <th>Date Of Birth</th> -->
-			
-		 	<th>Email Address</th>
-				<th>Contact Number</th>
-				<th>State</th>
-				<th>Insurance Plan</th>
-				<th>Action</th>
-				<th >&nbsp;</th>
 			</tr>
 		</thead>
 		<tbody>
-			<c:forEach var="patient" items="${patientList}">
+		<c:if test="${viewPatientHistoryList.size() == 0}">
+		<tr>
+		<td colspan ="3" style="text-align: center;">No Patient History Data To Display</td>
+		</tr>
+		</c:if>
+		<c:if test="${viewPatientHistoryList.size() > 0}">
+			<c:forEach var="patient" items="${viewPatientHistoryList}">
 				<tr>
 					<td>${patient.patientId}</td>
 					<td>${patient.firstName}</td>
 					<td>${patient.lastName}</td>
-					<%-- <td>${test.dateOfBirth}</td> --%>
-					<td>${patient.emailAddress}</td>
-					<td>${patient.contactNumber}</td>
-					<td>${patient.state}</td>
-					<td>${patient.insurancePlan}</td>
-					<td><a
-						href="${pageContext.request.contextPath}/patient/getPatient/${patient.patientId}">Edit</a></td>
-					<td><a
-						href="${pageContext.request.contextPath}/patient/deletePatient/${patient.patientId}">Delete</a></td>
 				</tr>
-				
 			</c:forEach>
-
+</c:if>
+		
 		</tbody>
 	</table>
 	</div>
