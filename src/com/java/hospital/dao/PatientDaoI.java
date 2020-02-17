@@ -15,4 +15,4 @@ public interface PatientDaoI {
 	void deletePatient(int patientId);
 	Patient patientAutoComplete();
 	List<Patient> viewPatientHistory();
-}
+} 
