@@ -34,6 +34,10 @@
 	background-color: #4CAF50;
 	color: white;
 }
+table{
+  margin-top: 100px;
+  margin-bottom: 100px;  
+}
 </style>
 
 </head>
@@ -88,9 +92,9 @@
 							<%-- <td>${test.dateOfBirth}</td> --%>
 							<td>${patientdiagnosis.diagnosisProvided}</td>
 							<td>${patientdiagnosis.administeredBy}</td>
-							<td>${patientdiagnosis.dateOfDiagnosis}</td>
+							<td>${patientdiagnosis.dateOfDiagnosisString}</td>
 							<td>${patientdiagnosis.followUpRequired}</td>
-							<td>${patientdiagnosis.dateOfFollowUp}</td>
+							<td>${patientdiagnosis.dateOfFollowUpString}</td>
 							<td>${patientdiagnosis.billAmount}</td>
 							<td>${patientdiagnosis.cardNumber}</td>
 							<td>${patientdiagnosis.modeOfPayment}</td>

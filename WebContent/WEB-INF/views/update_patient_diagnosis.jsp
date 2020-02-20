@@ -27,7 +27,18 @@
 
   </script>
 
+<style>
+body {
+  background-image: url("http://localhost:9061/images/table1.jpg");
+ 
+  background-repeat: no-repeat;
+  height: 100%;
+  background-size: cover; 
+  background-attachment: fixed;
+  background-position: center;
+} 
 
+</style>
 <body>
 
 	<div class="container">
@@ -66,8 +77,8 @@
 			</div>
 			<div class="form-group">
 				<label for="date_of_Diagnosis">Date Of Diagnosis</label>
-				<form:input class="form-control" path="dateOfDiagnosis"
-					placeholder="Enter Date Of Diagnosis" />
+				<form:input class="form-control" path="dateOfDiagnosisString"
+					placeholder="Enter Date Of Diagnosis" /> 
 			</div>
 
 			<div class="form-group">
@@ -79,7 +90,7 @@
 
 			<div class="form-group">
 				<label for="dateOfFollowUp">Date Of FollowUp</label>
-				<form:input path="dateOfFollowUp" class="form-control"
+				<form:input path="dateOfFollowUpString" class="form-control"
 					placeholder="Enter Date Of FollowUp" />
 			</div>
 

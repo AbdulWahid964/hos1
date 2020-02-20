@@ -1,8 +1,6 @@
 package com.java.hospital.model;
 
 
-import java.util.Date;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -12,6 +10,7 @@ import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 public class Patient {
@@ -32,14 +31,17 @@ public class Patient {
 	@Pattern(regexp = "^\\d{4}\\/(0[1-9]|1[012])\\/(0[1-9]|[12][0-9]|3[01])$", message = "must be yyyy/mm/dd")
 	private String dateOfBirthString;
 	
-	private Date dateOfBirth;
+    @DateTimeFormat(pattern="yyyy-MM-dd")
+	//@Temporal(TemporalType.DATE)
+	private String dateOfBirth;
+	
 	@NotEmpty(message = "email can't be empty")
 	@Email(message = "Enter valid email address. e.g hello@domain")
 	private String emailAddress;
 	@NotEmpty(message = "email can't be empty")
 	@Pattern(regexp = "[0-9]{10}", message = "must conatins 10 digits only")
 	private String contactNumber;
-	@Pattern(regexp = "[a-zA-Z]{2,}", message = "should not empty and must conatins alphabets only")
+//	@Pattern(regexp = "[a-zA-Z]{2,}", message = "should not empty and must conatins alphabets only")
 	private String state;
 	@NotEmpty(message = "insuarance plan can't be empty")
 	private String insurancePlan;
@@ -99,12 +101,22 @@ public class Patient {
 	public void setInsurancePlan(String insurancePlan) {
 		this.insurancePlan = insurancePlan;
 	}
-	public Date getDateOfBirth() {
+	/*public Date getDateOfBirth() {
 		return dateOfBirth;
 	}
 	public void setDateOfBirth(Date dateOfBirth) {
 		this.dateOfBirth = dateOfBirth;
+	}*/
+	/*public java.time.LocalDate getDateOfBirth() {
+		return dateOfBirth;
 	}
-	
-	
+	public void setDateOfBirth(java.time.LocalDate dateOfBirth) {
+		this.dateOfBirth = dateOfBirth;
+	}*/
+	public String getDateOfBirth() {
+		return dateOfBirth;
+	}
+	public void setDateOfBirth(String dateOfBirth) {
+		this.dateOfBirth = dateOfBirth;
+	}
 	}

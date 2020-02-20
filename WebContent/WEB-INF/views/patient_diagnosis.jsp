@@ -77,14 +77,14 @@
     	<td><form:errors path="billAmount"  cssClass="formError"/></td>
     </tr>
          <tr>
-    	<td>Card Number:</td>
-    	<td><form:input path="cardNumber"  cssClass="formInput" placeholder="16 digit card number"/></td>
-    	<td><form:errors path="cardNumber"  cssClass="formError"/></td>
-    </tr>
-         <tr>
     	<td>Mode Of Payment:</td>
     	<td><form:input path="modeOfPayment"  cssClass="formInput" placeholder="Online"/></td>
     	<td><form:errors path="modeOfPayment"  cssClass="formError"/></td>
+    </tr>
+    <tr>
+    	<td>Card Number:</td>
+    	<td><form:input path="cardNumber"  cssClass="formInput" placeholder="16 digit card number"/></td>
+    	<td><form:errors path="cardNumber"  cssClass="formError"/></td>
     </tr>
     <tr><td><input type="submit" value="Submit"/></td><td><input type="reset" value="Reset"/></td></tr>
     </table>

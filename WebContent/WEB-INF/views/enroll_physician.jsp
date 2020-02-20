@@ -13,15 +13,31 @@
 .formError {
 	color: red;
 }
+.home
+{
+margin-left: auto;
+margin-right: auto;
+}
+body {
+  background-repeat: no-repeat;
+  height: 100%;
+  background-size: cover; 
+  background-attachment: fixed;
+  background-position: center;
+  background-color:#4ac7ed;
+}
 </style>
 </head>
 <body>
  <div class="container">
 <br/>
- <button type="submit" class="btn btn-primary" onclick="location.href = '${pageContext.request.contextPath}'">Home</button>
-  <h2>Add Physician</h2>
+ <div class="home"></div><button type="submit" class="btn btn-primary" onclick="location.href = '${pageContext.request.contextPath}'">Home</button>
+  </div>
+  <h1 align="center">Add Physician</h1>
+  <br/>
+  
   <form:form action="/HospitalManagementXML/physician/savePhysician" method="post" commandName="physician">
-<table>
+<table align="center">
     <tr>
     	<td>Physician Id:</td>
     	<td><form:input path="physicianId"  cssClass="formInput" readonly="true"/></td>
@@ -59,7 +75,7 @@
     	<td><form:input path="insurancePlan"  cssClass="formInput" placeholder="plan name"/></td>
     	<td><form:errors path="insurancePlan"  cssClass="formError"/></td>
     </tr>
-    <tr><td><input type="submit" value="Submit"/></td><td><input type="reset" value="Reset"/></td></tr>
+    <tr><td align="right"><input type="submit" value="Submit"/></td><td align="left"><input type="reset" value="Reset"/></td></tr>
     </table>
  </form:form>
 <%-- <form:form action="${pageContext.request.contextPath}/physician/savePhysician" method="post" commandName="physician">

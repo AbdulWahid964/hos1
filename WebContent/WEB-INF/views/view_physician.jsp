@@ -31,6 +31,10 @@
   background-color: #4CAF50;
   color: white;
 }
+table{
+  margin-top: 100px;
+  margin-bottom: 100px;  
+}
 </style>
 
 </head>

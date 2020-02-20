@@ -1,7 +1,6 @@
 package com.java.hospital.dao;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.List;
 
 import org.hibernate.Query;
@@ -13,6 +12,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
 import com.java.hospital.model.Patient;
+
 
 @Repository
 @Component
@@ -36,10 +36,29 @@ public class PatientDaoImpl implements PatientDaoI {
 		try {
 
 			Transaction transaction = session.beginTransaction();
-			String date = patient.getDateOfBirthString();
-			System.out.println("patient.getDateOfBirth()" +patient.getDateOfBirthString());
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
-			patient.setDateOfBirth(sdf.parse(date));
+//			String date = patient.getDateOfBirthString();
+//			System.out.println("patient.getDateOfBirth()" +patient.getDateOfBirthString());
+//			2020-02-20
+		/*	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+			String dateString=sdf.format(patient.getDateOfBirth());
+			
+			System.out.println("dateString"+ dateString);
+			
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd hh:mm:ss");
+			LocalDate date = LocalDate.parse(dateString, formatter);
+			
+			System.out.println("date After parse "  +date);
+			patient.setDateOfBirth(date);*/
+			
+			System.out.println("contactNumber " +patient.getContactNumber());
+			System.out.println("dateOfBirth  " +patient.getDateOfBirth());
+			System.out.println("emailAddress " +patient.getEmailAddress());
+			System.out.println("firstName " +patient.getFirstName());
+			System.out.println("LastName " +patient.getLastName());
+			System.out.println("contactNumber " +patient.getPassword());
+
+			System.out.println("state " +patient.getState());
+			System.out.println("insu " +patient.getInsurancePlan());
 			session.save(patient);
 			transaction.commit();	
 		} catch (Exception e) {
@@ -49,13 +68,34 @@ public class PatientDaoImpl implements PatientDaoI {
 		}
 	}
 	@Override
-	public List<Patient> getAllPatients() {
+	public List<Patient> getAllPatients() throws ParseException {
+
 
 		Session session = sessionFactory.openSession();
 
+		
+		System.out.println("getAllPatients");
+		
+	//	04-02-2020
+		
+		
+		//List<Patient> patientList1 = new ArrayList<>();
+		Query query = session.createSQLQuery("SELECT patientId, contactNumber,emailAddress,firstName,insurancePlan,"
+				+ "lastName,password,state,dateOfBirth from Patient ").addEntity(Patient.class);
+		
 		@SuppressWarnings("unchecked")
-		List<Patient> patientList = session.createQuery("from Patient").list();
-
+		List<Patient> patientList = query.list();
+		/*for(Patient p:patientList) {
+			
+			//04-02-2020
+			System.out.println("p.getDateOfBirth() before setting " +p.getDateOfBirth());
+			SimpleDateFormat sdf = new SimpleDateFormat("dd-mm-yyyy");
+			String s= sdf.format(p.getDateOfBirth());
+			p.setDateOfBirthString(s);
+			
+			System.out.println("p.getDateOfBirth() after setting " +p.getDateOfBirth());
+			patientList1.add(p);
+		}*/
 		return patientList;
 	}
 
@@ -68,8 +108,8 @@ public class PatientDaoImpl implements PatientDaoI {
 
 		try{
 
-			Query query =session.createSQLQuery("SELECT patientId,firstName,lastName,password,dateOfBirth,emailAddress,contactNumber,state"
-					+ ",insurancePlan from Patient where patientId=:patientId").addEntity(Patient.class)
+			Query query =session.createSQLQuery("SELECT patientId,firstName,lastName,password,emailAddress,contactNumber,state"
+					+ ",insurancePlan,dateOfBirth from Patient where patientId=:patientId").addEntity(Patient.class)
 					.setParameter("patientId", patientId);
 
 			@SuppressWarnings("unchecked")
@@ -80,11 +120,12 @@ public class PatientDaoImpl implements PatientDaoI {
 				patient.setFirstName(obj.getFirstName());
 				patient.setLastName(obj.getLastName());
 				patient.setPassword(obj.getPassword());
-				patient.setDateOfBirth(obj.getDateOfBirth());
 				patient.setEmailAddress(obj.getEmailAddress());
 				patient.setContactNumber(obj.getContactNumber());
 				patient.setState(obj.getState());
 				patient.setInsurancePlan(obj.getInsurancePlan());
+				System.out.println("obj date-> "+obj.getDateOfBirth());
+				patient.setDateOfBirth(obj.getDateOfBirth());
 			}
 			query=null;
 			result=null;
@@ -105,8 +146,13 @@ public class PatientDaoImpl implements PatientDaoI {
 		Transaction transaction = session.beginTransaction();
 
 		try{
+			if(patient.getPassword().isEmpty()) {
+			Patient pat=updatePassword(patient);
+			patient.setPassword(pat.getPassword());
+			}
 			session.saveOrUpdate(patient);
 			transaction.commit();
+			
 
 		}
 		catch (Exception e) {
@@ -171,9 +217,25 @@ public class PatientDaoImpl implements PatientDaoI {
 
 		@SuppressWarnings("unchecked")
 		List<Patient> viewPatientHistoryList = query.list();
-
 		
 		return viewPatientHistoryList;
-
+	}
+	public Patient updatePassword(Patient patient){
+		
+		Session session = sessionFactory.openSession();
+		session.beginTransaction();
+		Patient patientObj= new Patient();
+		try{
+			patientObj=(Patient) session.get(Patient.class, patient.getPatientId());
+			patient.setPassword(patientObj.getPassword());
+			System.out.println("patientObj.getPassword()"+patientObj.getPassword());
+		}
+		catch (Exception e) {
+			System.out.println("Exception Caught" +e.getMessage());
+		}
+		finally{
+			session.close();
+		}
+		return patient;
 	}
 }

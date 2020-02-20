@@ -31,7 +31,7 @@ public class PatientServiceImpl implements PatientServiceI {
 		patientDaoI.savePatient(patient);
 	}
 	@Override
-	public List<Patient> getAllPatients() {
+	public List<Patient> getAllPatients() throws ParseException {
 
 		List<Patient> patientList=patientDaoI.getAllPatients();
 		return patientList;

@@ -31,6 +31,15 @@
   background-color: #4CAF50;
   color: white;
 }
+
+
+
+table{
+   width: 400px;
+  margin-left:30px;
+  margin-right:50px;
+   
+}
 </style>
 
 </head>
@@ -43,7 +52,7 @@
 </div>
 
 <div>
-<table id="patients">
+<table align="center" id="patients">
 
 		<thead>
 			<tr>
@@ -74,7 +83,7 @@
 					<td>${patient.patientId}</td>
 					<td>${patient.firstName}</td>
 					<td>${patient.lastName}</td>
-					<td>${test.dateOfBirth}</td>
+					<td>${patient.dateOfBirth}</td>
 					<td>${patient.emailAddress}</td>
 					<td>${patient.contactNumber}</td>
 					<td>${patient.state}</td>

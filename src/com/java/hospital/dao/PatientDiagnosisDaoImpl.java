@@ -2,6 +2,7 @@ package com.java.hospital.dao;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Query;
@@ -73,8 +74,16 @@ public class PatientDiagnosisDaoImpl implements PatientDiagnosisDaoI {
 
 		@SuppressWarnings("unchecked")
 		List<PatientDiagnosis> patientDiagonisList = session.createQuery("from PatientDiagnosis").list();
-
-		return patientDiagonisList;
+		List<PatientDiagnosis> patientDiagonisList1 = new ArrayList<>();
+		for(PatientDiagnosis p:patientDiagonisList) {
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+			String s= sdf.format(p.getDateOfDiagnosis());
+			String s1= sdf.format(p.getDateOfFollowUp());
+			p.setDateOfDiagnosisString(s);
+			p.setDateOfFollowUpString(s1);
+			patientDiagonisList1.add(p);
+		}
+		return patientDiagonisList1;
 	}
 
 	@Override
@@ -102,13 +111,15 @@ public class PatientDiagnosisDaoImpl implements PatientDiagnosisDaoI {
 				patientDiagnosis.setSymptoms(obj.getSymptoms());
 				patientDiagnosis.setAdministeredBy(obj.getAdministeredBy());
 				patientDiagnosis.setDiagnosisProvided(obj.getDiagnosisProvided());
-
-				patientDiagnosis.setDateOfDiagnosis(obj.getDateOfDiagnosis());
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+				patientDiagnosis.setDateOfDiagnosisString(sdf.format(obj.getDateOfDiagnosis()));
 				patientDiagnosis.setFollowUpRequired(obj.getFollowUpRequired());
-				patientDiagnosis.setDateOfFollowUp(obj.getDateOfFollowUp());
+				patientDiagnosis.setDateOfFollowUpString(sdf.format(obj.getDateOfFollowUp()));
 				patientDiagnosis.setBillAmount(obj.getBillAmount());
 				patientDiagnosis.setCardNumber(obj.getCardNumber());
 				patientDiagnosis.setModeOfPayment(obj.getModeOfPayment());
+				
+				
 			}
 			query=null;
 			result=null;
@@ -126,6 +137,9 @@ public class PatientDiagnosisDaoImpl implements PatientDiagnosisDaoI {
 		Session session = sessionFactory.openSession();
 		try{
 			Transaction transaction = session.beginTransaction();
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+			patientDiagnosis.setDateOfDiagnosis(sdf.parse(patientDiagnosis.getDateOfDiagnosisString()));
+			patientDiagnosis.setDateOfFollowUp(sdf.parse(patientDiagnosis.getDateOfFollowUpString()));
 			session.saveOrUpdate(patientDiagnosis);
 			transaction.commit();
 		}
